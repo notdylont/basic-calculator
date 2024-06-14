@@ -1,0 +1,51 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: bisque;
+}
+
+.container {
+    background-color: black;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    width: fit-content;
+}
+
+
+
+.display {
+    font-family:'Courier New', Courier, monospace;
+    font-weight: bold;
+    text-align: end;
+    background-color: green;
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+.calculator {
+    display: flex;
+}
+
+.btns {
+    width: 50px;
+    gap: 8px;
+}
+
+.operators {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.numbers {
+    
+    gap: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+}
