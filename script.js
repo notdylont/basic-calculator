@@ -1,15 +1,16 @@
-let first;
-let second;
-let operation;
+let first = null;
+let second = null;
+let operation = null;
+const ops = ['+', '-', 'x', '÷'];
 
-const contain = document.querySelector(".container");
-const btns = document.querySelectorAll(".btns");
-const display = document.querySelector(".calc-display");
+const contain = document.querySelector('.container');
+const btns = document.querySelectorAll('.btns');
+const display = document.querySelector('.calc-display');
 
 function add(a, b) {
   return a + b;
 }
-function substract(a, b) {
+function subtract(a, b) {
   return a - b;
 }
 
@@ -18,33 +19,55 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  return a / b;
+  if (b === 0) return 'Error';
+  else return a / b;
 }
 
-function operate(a, b, op) {
-  if (op === "+") add(a, b);
-  if (op === "-") substract(a, b);
-  if (op === "x") multiply(a, b);
-  if (op === "÷") divide(a, b);
-}
+let displayCalc = '';
+btns.forEach(function (button) {
+  button.addEventListener('click', function () {
+    const buttonText = button.textContent;
 
-let displayCalc = "";
-btns.forEach(function (buttons) {
-  buttons.addEventListener("click", function () {
-    if (buttons.textContent !== "clr") {
-      display.textContent += buttons.textContent;
-      displayCalc += buttons.textContent;
+    if (buttonText === '=') {
+      second = +displayCalc;
+      console.log(second);
+      displayCalc = evaluate(first, second, operation);
       console.log(displayCalc);
+      display.textContent = displayCalc;
+      first = null;
+      second = null;
+      operation = null;
+      displayCalc = '';
+    } else if (ops.includes(buttonText)) {
+      first = +displayCalc;
+      console.log(first);
+      operation = buttonText;
+      displayCalc = '';
     } else {
-      displayCalc = "";
-      display.textContent = "";
+      displayCalc += buttonText;
+      display.textContent = displayCalc;
     }
   });
 });
 
-const operationPressed = document.querySelectorAll(".ops");
-function ops() {
-  operationPressed.forEach(function (ops) {
-    ops.addEventListener("click", function () {});
-  });
+const operationPressed = document.querySelectorAll('.ops');
+
+function evaluate(first, second, op) {
+  switch (op) {
+    case '+':
+      return add(first, second);
+      break;
+    case '-':
+      return subtract(first, second);
+      break;
+    case 'x':
+      return multiply(first, second);
+      break;
+    case '÷':
+      return divide(first, second);
+      break;
+    default:
+      return 'Error';
+      break;
+  }
 }
