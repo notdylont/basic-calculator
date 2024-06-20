@@ -20,6 +20,7 @@ numBtns.forEach(function (numsButton) {
         displayCalc = '';
         opClicked = false;
       }
+      if (displayCalc.includes('.') && buttonText === '.') return;
       displayCalc += buttonText;
       display.textContent = displayCalc;
     }
