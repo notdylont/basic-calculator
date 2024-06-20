@@ -4,6 +4,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: bisque;
+    font-size: 1.4em;
 }
 
 h1 {
@@ -16,8 +17,7 @@ h1 {
     padding: 12px;
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
-    width: fit-content;
+    width: 300px;
     gap: 8px;
 }
 
@@ -27,8 +27,8 @@ h1 {
     font-family:'Courier New', Courier, monospace;
     font-weight: bold;
     text-align: end;
-    height: 20px;
-    background-color: green;
+    height: 30px;
+    background-color: gray;
     padding: 8px;
     margin-bottom: 8px;
 }
@@ -38,21 +38,32 @@ h1 {
 }
 
 .btns {
-    width: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 8px;
 }
 
 .operators {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 4px;
+    width: 200px;
+    height: fit-content;
+    justify-content: flex-end;
+   
 }
 
+.numbers {
+    background-color:aliceblue;
+}
 
+.ops {
+    background-color: orange;
+}
 
 .number-part {
     gap: 4px;
     display: flex;
     flex-wrap: wrap;
-    width: 150px;
+    width: 250px;
 }
