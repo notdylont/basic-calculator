@@ -1,15 +1,79 @@
 let first = null;
 let second = null;
 let operation = null;
+let opClicked = false;
 const ops = ['+', '-', 'x', '÷'];
 
-const contain = document.querySelector('.container');
-const btns = document.querySelectorAll('.btns');
+const numBtns = document.querySelectorAll('.numbers');
+const opsBtns = document.querySelectorAll('.ops');
 const display = document.querySelector('.calc-display');
+const equal = document.querySelector('#equal');
+const clr = document.querySelector('#clear');
+
+let displayCalc = '';
+
+numBtns.forEach(function (numsButton) {
+  numsButton.addEventListener('click', function () {
+    const buttonText = numsButton.textContent;
+    if (displayCalc.length < 10) {
+      if (opClicked) {
+        displayCalc = '';
+        opClicked = false;
+      }
+      displayCalc += buttonText;
+      display.textContent = displayCalc;
+    }
+  });
+});
+
+opsBtns.forEach(function (opsBtn) {
+  opsBtn.addEventListener('click', function () {
+    const op = opsBtn.textContent;
+    display.textContent = '';
+    if (op === 'clr') {
+      clear();
+      return;
+    } else if (op === '=') {
+      if (first !== null && operation !== null) {
+        second = parseFloat(displayCalc);
+        displayCalc = evaluate(first, second, operation).toString();
+        display.textContent = displayCalc;
+        first = null;
+        second = null;
+        operation = null;
+        opClicked = false;
+      }
+      return;
+    } else {
+      if (first === null) {
+        first = parseFloat(displayCalc);
+      } else if (!opClicked) {
+        second = parseFloat(displayCalc);
+        first = evaluate(first, second, operation);
+      }
+      operation = op;
+      opClicked = true;
+      displayCalc = first.toString();
+      display.textContent = displayCalc;
+    }
+  });
+});
+
+function clear() {
+  display.textContent = '';
+  displayCalc = '';
+  first = null;
+  second = null;
+  operation = null;
+  opClicked = false;
+}
+
+clr.addEventListener('click', clear);
 
 function add(a, b) {
   return a + b;
 }
+
 function subtract(a, b) {
   return a - b;
 }
@@ -23,51 +87,17 @@ function divide(a, b) {
   else return a / b;
 }
 
-let displayCalc = '';
-btns.forEach(function (button) {
-  button.addEventListener('click', function () {
-    const buttonText = button.textContent;
-
-    if (buttonText === '=') {
-      second = +displayCalc;
-      console.log(second);
-      displayCalc = evaluate(first, second, operation);
-      console.log(displayCalc);
-      display.textContent = displayCalc;
-      first = null;
-      second = null;
-      operation = null;
-      displayCalc = '';
-    } else if (ops.includes(buttonText)) {
-      first = +displayCalc;
-      console.log(first);
-      operation = buttonText;
-      displayCalc = '';
-    } else {
-      displayCalc += buttonText;
-      display.textContent = displayCalc;
-    }
-  });
-});
-
-const operationPressed = document.querySelectorAll('.ops');
-
-function evaluate(first, second, op) {
+function evaluate(a, b, op) {
   switch (op) {
     case '+':
-      return add(first, second);
-      break;
+      return add(a, b);
     case '-':
-      return subtract(first, second);
-      break;
+      return subtract(a, b);
     case 'x':
-      return multiply(first, second);
-      break;
+      return multiply(a, b);
     case '÷':
-      return divide(first, second);
-      break;
+      return divide(a, b);
     default:
       return 'Error';
-      break;
   }
 }
